@@ -11,4 +11,10 @@ WORKDIR /var/www/html
 RUN composer create-project laravel/laravel MyProject --prefer-dist
 RUN chown -R www-data:www-data /var/www/html/MyProject/
 RUN chmod -R 755 /var/www/html/MyProject/
+COPY laravel.conf /etc/apache2/sites-available/
+RUN a2ensite laravel.conf
+RUN a2enmod rewrite
+EXPOSE 80
+CMD apachectl -D FOREGROUND
+
 # https://websiteforstudents.com/install-laravel-php-framework-on-ubuntu-16-04-17-10-18-04-with-apache2-and-php-7-2-support/
