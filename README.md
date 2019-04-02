@@ -19,6 +19,13 @@ Podrás ver la página por default de laravel en
 
 http://laravel.test:8181/
 
+Todo
+
+[ ] Hot reloading
+[ ] Test automation
+[ ] Iniciar con un proyecto en blanco (solo Laravel) por defecto
+[ ] Git cloning cuando se reciba un parametro
+
 
 Basado en estas instrucciones 
 https://websiteforstudents.com/install-laravel-php-framework-on-ubuntu-16-04-17-10-18-04-with-apache2-and-php-7-2-support/

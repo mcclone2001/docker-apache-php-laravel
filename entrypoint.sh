@@ -9,6 +9,11 @@ if [ ! -z "$(ls -A /var/www/html/$1/)" ]; then
 else
 	echo "Instalando laravel"
 	cd /var/www/html/$1 && composer create-project laravel/laravel ./ --prefer-dist
+	if [ ! "$(cd /var/www/html/$1 && npm ci)" ]; then
+		echo "No se ha podido instalar npm con la opción ci"
+		echo "procediendo con npm i"
+		cd /var/www/html/$1 && npm cache clear --force && npm i
+	fi
 
 	echo "Actualizando permisos"
 	chown -R www-data:www-data /var/www/html/$1/
@@ -16,5 +21,6 @@ else
 fi
 
 echo "Instalación terminada"
-apachectl -D FOREGROUND
+apachectl start
+cd /var/www/html/$1 && npm run hot
 exit 0

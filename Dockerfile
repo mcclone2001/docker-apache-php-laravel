@@ -5,15 +5,23 @@ ARG hostname=example.com
 
 ENV envprojectname=${projectname}
 
-RUN apt-get update && apt-get install --yes \
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install --yes \
 	systemd \
 	apache2 \
 	git \
 	curl \
-  unzip
+  zip \
+  unzip \
+  tzdata \
+  php7.2 libapache2-mod-php7.2 php7.2-mbstring php7.2-xmlrpc php7.2-soap php7.2-gd php7.2-xml php7.2-cli php7.2-zip php7.2-dom p7zip-full \
+  libpng* build-essential gcc make autoconf libtool pkg-config nasm \
+  && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+  && apt-get install --yes \
+  nodejs
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
-RUN apt-get update && apt-get install --yes php7.2 libapache2-mod-php7.2 php7.2-mbstring php7.2-xmlrpc php7.2-soap php7.2-gd php7.2-xml php7.2-cli php7.2-zip
+RUN npm install -g cross-env
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN echo '<VirtualHost *:80> \n\
