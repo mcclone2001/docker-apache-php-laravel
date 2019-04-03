@@ -20,6 +20,8 @@ RUN apt-get update \
   && apt-get install --yes \
   nodejs
 
+RUN npm install -g npm@latest
+
 RUN npm install -g cross-env
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
