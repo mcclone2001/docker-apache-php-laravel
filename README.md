@@ -4,7 +4,7 @@ Un contenedor docker para desarrollar cosas locas en Laravel
 
 ```
 $ docker build --build-arg projectname=miproyecto --build-arg hostname=laravel.test ./ -t laravel
-$ docker run -it -p 8181:80 -v /c/Users/volumen/:/var/www/html/miproyecto laravel
+$ docker run -it --rm --name laravel -p 8181:80 -v /c/Users/volumen/:/var/www/html/miproyecto laravel
 ```
 
 Para windows recuerda agregar la siguiente línea al archivo C:\Windows\System32\drivers\etc\hosts
