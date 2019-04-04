@@ -1,11 +1,16 @@
 FROM ubuntu:18.04
 
-ARG projectname=MyProject
+# valores por default para los argumentos
 ARG hostname=example.com
+ARG projectname=MyProject
 
-ENV envprojectname=${projectname}
+# variables de entorno
 ENV NODE_PATH=/usr/lib/node_modules
+ENV envprojectname=${projectname}
+ENV envextensiones="php, css, js"
+ENV envdirectorios="/var/www/html/${projectname}/public, /var/www/html/${projectname}/resources/views"
 
+# requisitos generales
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install --yes \
 	systemd \
@@ -21,12 +26,18 @@ RUN apt-get update \
   && apt-get install --yes \
   nodejs
 
+# Requisitos para webpack
 RUN npm install -g npm@latest
 RUN npm install -g cross-env
-RUN npm install -g livereload
 
+# Requisitos para livereload
+RUN npm install -g livereload
+RUN npm install -g minimist
+
+# composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# configurando apache
 RUN echo '<VirtualHost *:80> \n\
              ServerAdmin admin@example.com \n\
              DocumentRoot /var/www/html/'${projectname}'/public \n\
@@ -44,11 +55,19 @@ RUN cat /etc/apache2/sites-available/laravel.conf
 
 RUN a2ensite laravel.conf
 RUN a2enmod rewrite
-EXPOSE 80
 
+# configurando el volumen
 VOLUME /var/www/html/${projectname}
 
+# copiando scripts
 COPY entrypoint.sh /tmp
 COPY livereloadserver.js /tmp
 
-CMD /tmp/entrypoint.sh ${envprojectname}
+#Puerto de Apache2
+EXPOSE 80
+
+#Puerto de Livereload
+EXPOSE 35729
+
+# punto de entrada
+CMD /tmp/entrypoint.sh ${envprojectname} "${envextensiones}" "${envdirectorios}"

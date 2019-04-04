@@ -37,6 +37,6 @@ else
 fi
 
 apachectl start
-cd /tmp && nodejs livereloadserver.js &
+nodejs /tmp/livereloadserver.js --extensiones "$2" --directorios "$3" &
 cd /var/www/html/$1 && npm run watch
 exit 0

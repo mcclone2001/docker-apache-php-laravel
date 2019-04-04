@@ -3,8 +3,8 @@
 Un contenedor docker para desarrollar cosas locas en Laravel
 
 ```
-$ docker build --build-arg projectname=miproyecto --build-arg hostname=laravel.test ./ -t laravel
-$ docker run -it --rm --name laravel -p 8181:80 -v /c/Users/volumen/:/var/www/html/miproyecto laravel
+$ docker build --build-arg hostname=laravel.test ./ -t laravel
+$ docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject laravel
 ```
 
 Para windows recuerda agregar la siguiente línea al archivo C:\Windows\System32\drivers\etc\hosts
@@ -19,13 +19,23 @@ Podrás ver la página por default de laravel en
 
 http://laravel.test:8181/
 
+## Para usar LiveReload
+
+Recuerda agregar el script a todas tus páginas
+
+``
+<script src="http://laravel.test:35729/livereload.js?snipver=1"></script>
+``
+
+Si deseas ver el log de Livereload agrega ``?LR-verbose`` a la url (``http://laravel.test:8181/?LR-verbose``)
+
 Todo
 
 [x] Live reloading
-  [ ] Configurar directorios vigilados desde un build-arg
+  [?] Configurar extensiones y directorios vigilados desde un --build-arg/--env
 [ ] Test automation
 [x] Iniciar con un proyecto en blanco (solo Laravel) por defecto
-[ ] Git cloning cuando se reciba un build-arg
+[ ] Git cloning cuando se reciba un --build-arg/--env
 
 
 Basado en estas instrucciones 
