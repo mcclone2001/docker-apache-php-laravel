@@ -4,6 +4,7 @@ ARG projectname=MyProject
 ARG hostname=example.com
 
 ENV envprojectname=${projectname}
+ENV NODE_PATH=/usr/lib/node_modules
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install --yes \
@@ -21,8 +22,8 @@ RUN apt-get update \
   nodejs
 
 RUN npm install -g npm@latest
-
 RUN npm install -g cross-env
+RUN npm install -g livereload
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -48,5 +49,6 @@ EXPOSE 80
 VOLUME /var/www/html/${projectname}
 
 COPY entrypoint.sh /tmp
+COPY livereloadserver.js /tmp
 
 CMD /tmp/entrypoint.sh ${envprojectname}

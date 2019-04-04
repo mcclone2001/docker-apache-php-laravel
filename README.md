@@ -21,10 +21,11 @@ http://laravel.test:8181/
 
 Todo
 
-[ ] Hot reloading
+[x] Live reloading
+  [ ] Configurar directorios vigilados desde un build-arg
 [ ] Test automation
-[ ] Iniciar con un proyecto en blanco (solo Laravel) por defecto
-[ ] Git cloning cuando se reciba un parametro
+[x] Iniciar con un proyecto en blanco (solo Laravel) por defecto
+[ ] Git cloning cuando se reciba un build-arg
 
 
 Basado en estas instrucciones 
