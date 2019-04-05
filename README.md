@@ -35,9 +35,12 @@ Todo
 
 [x] Live reloading
   [?] Configurar extensiones y directorios vigilados desde un --build-arg/--env
-[ ] Test automation
+[/] Test automation
 [x] Iniciar con un proyecto en blanco (solo Laravel) por defecto
 [ ] Git cloning cuando se reciba un --build-arg/--env
+
+? - testing
+/ - en proceso
 
 
 Basado en estas instrucciones 

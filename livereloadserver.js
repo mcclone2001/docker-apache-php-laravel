@@ -1,9 +1,9 @@
 /*
  CLI
 
- -directorios
+ --directorios
         Especifica la lista de directorios a vigilar
- -extensiones
+ --extensiones
         Especifica las extensiones a vigilar
 */
 

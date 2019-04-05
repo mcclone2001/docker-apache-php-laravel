@@ -35,6 +35,9 @@ RUN npm install -g cross-env
 RUN npm install -g livereload
 RUN npm install -g minimist
 
+# Requisitos para el unittestingserver
+RUN npm install -g chokidar
+
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
