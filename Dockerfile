@@ -24,7 +24,8 @@ RUN apt-get update \
   libpng* build-essential gcc make autoconf libtool pkg-config nasm \
   && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
   && apt-get install --yes \
-  nodejs
+  nodejs \
+  tmux
 
 # Requisitos para webpack
 RUN npm install -g npm@latest
