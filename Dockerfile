@@ -7,8 +7,13 @@ ARG projectname=MyProject
 # variables de entorno
 ENV NODE_PATH=/usr/lib/node_modules
 ENV envprojectname=${projectname}
+ENV dirproj="/var/www/html/${projectname}"
+
 ENV envextensiones="php, css, js"
-ENV envdirectorios="/var/www/html/${projectname}/public, /var/www/html/${projectname}/resources/views"
+ENV envdirectorios="${dirproj}/public, ${dirproj}/resources/views"
+
+ENV envtestingdirectorioscodigo="${dirproj}/app/Clases/"
+ENV envtestingdirectoriospruebas="${dirproj}/tests/Unit/"
 
 # requisitos generales
 RUN apt-get update \
@@ -37,6 +42,7 @@ RUN npm install -g minimist
 
 # Requisitos para el unittestingserver
 RUN npm install -g chokidar
+RUN npm install -g chalk
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -66,6 +72,7 @@ VOLUME /var/www/html/${projectname}
 # copiando scripts
 COPY entrypoint.sh /tmp
 COPY livereloadserver.js /tmp
+COPY unittestingserver.js /tmp
 
 #Puerto de Apache2
 EXPOSE 80
@@ -74,4 +81,4 @@ EXPOSE 80
 EXPOSE 35729
 
 # punto de entrada
-CMD /tmp/entrypoint.sh ${envprojectname} "${envextensiones}" "${envdirectorios}"
+CMD /tmp/entrypoint.sh ${envprojectname} "${envextensiones}" "${envdirectorios}" "${envtestingdirectorioscodigo}" "${envtestingdirectoriospruebas}"

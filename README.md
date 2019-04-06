@@ -35,9 +35,12 @@ Todo
 
 [x] Live reloading
   [?] Configurar extensiones y directorios vigilados desde un --build-arg/--env
-[/] Test automation
+[x] Test automation
+  [x] Que tambien observe cambios en los directorios de pruebas
 [x] Iniciar con un proyecto en blanco (solo Laravel) por defecto
 [ ] Git cloning cuando se reciba un --build-arg/--env
+[ ] Que notifique si la url ya esta agregada al archivo hosts
+[ ] Que habra la url en el navegador una vez que arranque
 
 ? - testing
 / - en proceso
