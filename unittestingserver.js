@@ -63,3 +63,5 @@ function eliminarRutaBase(rutaBase,rutaDeArchivo) {
 function esPHP(rutaDeArchivo) {
  return( rutaDeArchivo.slice(-3).toLowerCase()=='php' );
 }
+
+console.log("Unit Testing Watcher Server Iniciado");

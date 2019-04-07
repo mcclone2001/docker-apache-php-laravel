@@ -2,10 +2,12 @@
 
 Un contenedor docker para desarrollar cosas locas en Laravel
 
-```
-$ docker build --build-arg hostname=laravel.test ./ -t laravel
-$ docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject laravel
-```
+Asegurate de tener installado Docker Toolbox
+
+Para usar Livereload recuerda agregar el script a todas tus páginas
+``
+<script src="http://laravel.test:35729/livereload.js?snipver=1"></script>
+``
 
 Para windows recuerda agregar la siguiente línea al archivo C:\Windows\System32\drivers\etc\hosts
 ```
@@ -16,10 +18,18 @@ donde `192.168.99.100` es la dirección ip del contenedor, sí estas usando Dock
 
 Importante, asegurate agregar una excepción al antivirus para que no monitoree la carpeta que uses como volumen (en el ejemplo ``/c/Users/volumen/``) para evitar problemas de permisos.
 
+Ejecuta inicio.bat
 
 Podrás ver la página por default de laravel en
 
 http://laravel.test:80/
+
+
+## Para ejecutar manualmente desde Docker Quickstart Terminal
+```
+$ docker build --build-arg hostname=laravel.test ./ -t laravel
+$ docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject laravel
+```
 
 ## Para usar LiveReload
 
@@ -34,7 +44,7 @@ Si deseas ver el log de Livereload agrega ``?LR-verbose`` a la url (``http://lar
 Todo
 
 [x] Live reloading
-  [?] Configurar extensiones y directorios vigilados desde un --build-arg/--env
+  [x] Configurar extensiones y directorios vigilados desde un --build-arg/--env
 [x] Test automation
   [x] Que tambien observe cambios en los directorios de pruebas
 [x] Iniciar con un proyecto en blanco (solo Laravel) por defecto

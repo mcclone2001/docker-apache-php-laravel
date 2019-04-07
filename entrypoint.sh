@@ -39,6 +39,3 @@ fi
 apachectl start
 tmux new "cd /var/www/html/$1 && npm run watch" ';' split -h "nodejs /tmp/livereloadserver.js --extensiones \"$2\" --directorios \"$3\"" ';' select-p -t 0 ';' split -v "nodejs /tmp/unittestingserver.js --codigo=\"$4\" --pruebas=\"$5\"" ";" select-p -t 2 ';' split -v "bin/bash"
 exit 0
-
-
-# nodejs /tmp/unittestingserver.js --codigo="/var/www/html/MyProject/app/Clases/, /var/www/html/MyProject/app/Console/" --pruebas="/var/www/html/MyProject/tests/Unit/, /var/www/html/MyProject/tests/Feature/"

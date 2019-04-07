@@ -1,4 +1,5 @@
 echo off
 cls
 echo Iniciando
-"C:\Program Files (x86)\Git\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh" "/c/Users/IvanQ/dockers/docker-apache-php-laravel/inicio.sh"
+SET _ruta=%~dp0
+"C:\Program Files\Git\bin\bash.exe" --cd="%_ruta:~0,-1%" --login -i "C:\Program Files\Docker Toolbox\start.sh" "./inicio.sh"
