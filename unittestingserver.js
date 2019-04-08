@@ -26,15 +26,17 @@ function mapearArreglos(llaves,valores) {
   return mapeo;
 }
 
-chokidar.watch(directoriosDeCodigo, { usePolling: true }).on('all', (event, path) => {
+chokidar.watch(directoriosDeCodigo.concat(directoriosDePruebas), { usePolling: true }).on('all', (event, path) => {
   if( noEsArchivoPHPNuevoOModificado(event,path) ) return;
 
   var par = mapeoDeDirectorios.find(function(element){ return(element.codigo==path.slice(0,element.codigo.length)) });
+  var rutaDePrueba = "";
 
-  var directorioDePruebas = par.prueba;
-  var directorioDeCodigo = par.codigo;
-
-  var rutaDePrueba = obtenerRutaDePrueba(directorioDeCodigo,path,directorioDePruebas);
+  if(typeof par=='undefined') {
+    rutaDePrueba = path;
+  } else {
+    rutaDePrueba = obtenerRutaDePrueba(par.codigo, path, par.prueba);
+  }
 
   // https://stackoverflow.com/questions/20643470/execute-a-command-line-binary-with-node-js
   const { spawnSync } = require('child_process'),

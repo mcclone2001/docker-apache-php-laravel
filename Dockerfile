@@ -9,9 +9,11 @@ ENV NODE_PATH=/usr/lib/node_modules
 ENV envprojectname=${projectname}
 ENV dirproj="/var/www/html/${projectname}"
 
+#Extensiones y directorios a observar para Livereload
 ENV envextensiones="php, css, js"
 ENV envdirectorios="${dirproj}/public, ${dirproj}/resources/views"
 
+#Extensiones y directorios a observar para Unittesting
 ENV envtestingdirectorioscodigo="${dirproj}/app/Clases/"
 ENV envtestingdirectoriospruebas="${dirproj}/tests/Unit/"
 
