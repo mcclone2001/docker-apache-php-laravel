@@ -13,6 +13,11 @@ if docker container inspect laravel; then
   fi
 else
   echo "Creando el contenedor Laravel"
-  docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject laravel
+  if [ -f "config.txt" ]; then
+  	ls
+  	source ./config.txt
+  	docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject -e "envextensiones=$envextensiones" -e "envdirectorios=$envdirectorios" -e "envtestingdirectorioscodigo=$envtestingdirectorioscodigo" -e "envtestingdirectoriospruebas=$envtestingdirectoriospruebas" laravel
+  else
+  	docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject laravel
+  fi  
 fi
-

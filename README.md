@@ -47,7 +47,8 @@ Todo
   [x] Configurar extensiones y directorios vigilados desde un --build-arg/--env
 [x] Test automation
   [x] Que tambien observe cambios en los directorios de pruebas
-[ ] Tomar rutas de carpetas para Livereload y Unittesting desde archivo en el código fuente
+[x] Tomar rutas de carpetas para Livereload y Unittesting desde config.txt
+  [ ] Que los parametros pasados a ``docker run`` en ``inicio.sh`` no necesiten la ruta completa, pasar el directorio base del proyecto a ``CMD entrypoint.sh``
 [x] Iniciar con un proyecto en blanco (solo Laravel) por defecto
 [ ] Git cloning cuando se reciba un --build-arg/--env
 [ ] Que notifique si la url ya esta agregada al archivo hosts

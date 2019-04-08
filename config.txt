@@ -1,0 +1,7 @@
+#Directorios a observar por Livereload
+envextensiones="php, css, js"
+envdirectorios="/var/www/html/MyProject/public, /var/www/html/MyProject/resources/views"
+
+#Directorios a observar por Unittestingserver
+envtestingdirectorioscodigo="/var/www/html/MyProject/app/Clases/, /var/www/html/MyProject/app/Http/Controllers/"
+envtestingdirectoriospruebas="/var/www/html/MyProject/tests/Unit/, /var/www/html/MyProject/tests/Features/"
