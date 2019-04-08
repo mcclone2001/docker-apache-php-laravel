@@ -9,6 +9,10 @@ ENV NODE_PATH=/usr/lib/node_modules
 ENV envprojectname=${projectname}
 ENV dirproj="/var/www/html/${projectname}"
 
+ENV giturl=""
+ENV gitbranch=""
+ENV gitcommit=""
+
 #Extensiones y directorios a observar para Livereload
 ENV envextensiones="php, css, js"
 ENV envdirectorios="${dirproj}/public, ${dirproj}/resources/views"
@@ -86,4 +90,4 @@ EXPOSE 80
 EXPOSE 35729
 
 # punto de entrada
-CMD /tmp/entrypoint.sh ${envprojectname} "${envextensiones}" "${envdirectorios}" "${envtestingdirectorioscodigo}" "${envtestingdirectoriospruebas}"
+CMD /tmp/entrypoint.sh ${dirproj} "${envextensiones}" "${envdirectorios}" "${envtestingdirectorioscodigo}" "${envtestingdirectoriospruebas}" "${giturl}" "${gitbranch}" "${gitcommit}"

@@ -1,3 +1,8 @@
+#Repositorio a clonar (incluyendo sus submódulos) agrega el nombre de usuario y contraseña a la url (inseguro, peor es nada)
+giturl="http://automaton:1234567890@192.168.1.68:30000/conclave/tripya2.git"
+gitbranch="develop_2.0.0"
+gitcommit=""
+
 #Directorios a observar por Livereload
 envextensiones="php, css, js"
 envdirectorios="/var/www/html/MyProject/public, /var/www/html/MyProject/resources/views"
