@@ -9,9 +9,7 @@
 
 var livereload = require('livereload');
 var argv = require('minimist')(process.argv.slice(2));
-
-console.log(argv);
-
+var chalk = require('chalk');
 var abortar = false;
 
 if(!tiene(argv,'extensiones')) {
@@ -37,14 +35,37 @@ function tiene(objeto,nombrePropiedad) {
 }
 
 var serverConf = {};
-serverConf.debug=true;
+
+serverConf.debug=false;
 serverConf.usePolling=true;
 serverConf.exts=argv.extensiones.replace(/\s/g, '').split(',');
 serverConf.dirs=argv.directorios.replace(/\s/g, '').split(',');
 
-console.log(serverConf);
-
-
 var server = livereload.createServer( serverConf );
+server.refresh = function(filepath) {
+  var data;
+  if(filepath.slice(-4)=='.php') {
+  	console.log("Validando "+filepath);
+  	const { spawnSync }=require('child_process');
+  	res = spawnSync('php',["-l",filepath]);
+  	if(res.status!=0) {
+  		console.log(chalk.white.bgRed("*** ERROR DE SYNTAXIS ***"));
+  		console.log(res.stdout.toString());
+  		console.log(res.stderr.toString());
+  		return;
+  	}
+  }
+  console.log(chalk.black.bgGreen("Recargando por cambio a: " + filepath));
+  data = JSON.stringify({
+    command: 'reload',
+    path: filepath,
+    liveCSS: this.config.applyCSSLive,
+    liveImg: this.config.applyImgLive,
+    originalPath: this.config.originalPath,
+    overrideURL: this.config.overrideURL
+  });
+  return this.sendAllClients(data);
+};
+
 server.watch( serverConf.dirs );
 console.log( "Livereload iniciado" );

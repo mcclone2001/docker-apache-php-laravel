@@ -74,6 +74,9 @@ COPY entrypoint.sh /tmp
 COPY livereloadserver.js /tmp
 COPY unittestingserver.js /tmp
 
+#Quitando problemas de fin de linea por malas configuraciones en los clientes de GIT
+RUN sed -i 's/\r$//' /tmp/entrypoint.sh
+
 #Puerto de Apache2
 EXPOSE 80
 
