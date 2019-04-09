@@ -54,5 +54,5 @@ else
 fi
 
 apachectl start
-tmux new "cd $1/ && npm run watch" ';' split -h "nodejs /tmp/livereloadserver.js --extensiones \"$2\" --directorios \"$3\"" ';' select-p -t 0 ';' split -v "nodejs /tmp/unittestingserver.js --codigo=\"$4\" --pruebas=\"$5\"" ";" select-p -t 2 ';' split -v "cd $1; bin/bash"
+tmux new "cd $1/ && npm run watch" ';' split -h "nodejs /tmp/livereloadserver.js --extensiones \"$2\" --directorios \"$3\"" ';' select-p -t 0 ';' split -v "nodejs /tmp/unittestingserver.js --codigo=\"$4\" --pruebas=\"$5\"" ";" select-p -t 2 ';' split -v "bin/bash"
 exit 0

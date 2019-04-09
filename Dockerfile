@@ -83,6 +83,9 @@ COPY unittestingserver.js /tmp
 #Quitando problemas de fin de linea por malas configuraciones en los clientes de GIT
 RUN sed -i 's/\r$//' /tmp/entrypoint.sh
 
+#Configurando directorio de inicio para bash
+RUN echo "cd ${dirproj}" >> ~/.bashrc
+
 #Puerto de Apache2
 EXPOSE 80
 
