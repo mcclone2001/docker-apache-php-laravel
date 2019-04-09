@@ -54,6 +54,7 @@ Todo
 [ ] Que notifique si la url ya esta agregada al archivo hosts
 [ ] Que habra la url en el navegador una vez que arranque
 [ ] Agregar observador de buenas prácticas, parametrizado por archivos (PHP_Codesniffer,php-testability,PHP-Parser)
+[ ] Agregar a config.txt control del tiempo de polling para livereload (default 100ms)
 
 ? - testing
 / - en proceso
