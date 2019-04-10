@@ -13,11 +13,12 @@ if docker container inspect laravel; then
   fi
 else
   echo "Creando el contenedor Laravel"
-  if [ -f "config.txt" ]; then
+  if [ -f "$1" ]; then
   	ls
-  	source ./config.txt
-  	docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject -e "envextensiones=$envextensiones" -e "envdirectorios=$envdirectorios" -e "envtestingdirectorioscodigo=$envtestingdirectorioscodigo" -e "envtestingdirectoriospruebas=$envtestingdirectoriospruebas" -e "giturl=$giturl" -e "gitbranch=$gitbranch" -e "gitcommit=$gitcommit" laravel
+  	source $1
+    docker run -d --name redis redis
+  	docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v $rutavolumen:/var/www/html/MyProject -e "envextensiones=$envextensiones" -e "envdirectorios=$envdirectorios" -e "envtestingdirectorioscodigo=$envtestingdirectorioscodigo" -e "envtestingdirectoriospruebas=$envtestingdirectoriospruebas" -e "giturl=$giturl" -e "gitbranch=$gitbranch" -e "gitcommit=$gitcommit" --link redis:redis_server laravel
   else
-  	docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen/:/var/www/html/MyProject laravel
+  	docker run -it --rm --name laravel -p 80:80 -p 35729:35729 laravel
   fi  
 fi
