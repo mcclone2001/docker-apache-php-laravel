@@ -1,0 +1,1 @@
+set RUTA_BASH="C:\Program Files (x86)\Git\Git\bin\bash.exe"

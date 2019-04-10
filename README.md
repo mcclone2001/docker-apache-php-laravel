@@ -50,7 +50,7 @@ Todo
 [x] Tomar rutas de carpetas para Livereload y Unittesting desde config.txt
   [ ] Que los parametros pasados a ``docker run`` en ``inicio.sh`` no necesiten la ruta completa, pasar el directorio base del proyecto a ``CMD entrypoint.sh``
 [x] Iniciar con un proyecto en blanco (solo Laravel) por defecto
-[ ] Git cloning cuando se reciba un --build-arg/--env
+[X] Git cloning cuando se reciba un --build-arg/--env
 [ ] Que notifique si la url ya esta agregada al archivo hosts
 [ ] Que habra la url en el navegador una vez que arranque
 [ ] Agregar observador de buenas prácticas, parametrizado por archivos (PHP_Codesniffer,php-testability,PHP-Parser)
