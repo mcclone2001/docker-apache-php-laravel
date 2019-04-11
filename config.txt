@@ -13,5 +13,6 @@ envtestingdirectoriospruebas="/var/www/html/MyProject/tests/Unit/, /var/www/html
 
 #Directorio donde se alojara el volumen
 #Si usas Docker Toolbox DEBE EXISTIR EN C:\USERS
+#Agregue una excepción al antivirus para que no escanee este directorio
 #Debe indicarse en formato Linux
 rutavolumen=/c/Users/volumen/

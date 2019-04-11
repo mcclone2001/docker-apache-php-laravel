@@ -1,13 +1,15 @@
-# docker-apache-php-laravel
+# Un contenedor docker para desarrollar cosas locas en Laravel
 
-Un contenedor docker para desarrollar cosas locas en Laravel
+* Autocontenido     - Sólo ejecuta inicio.bat y tendras un ambiente listo para empezar a desarrollar
+* Livereload        - Olvidate de recargar manualmente la página del navegador
+* Pruebas unitarias - Ejecuta las pruebas en cuanto guardas tus cambios
 
 Asegurate de tener installado Docker Toolbox
 
 Para usar Livereload recuerda agregar el script a todas tus páginas
-``
+```
 <script src="http://laravel.test:35729/livereload.js?snipver=1"></script>
-``
+```
 
 Para windows recuerda agregar la siguiente línea al archivo C:\Windows\System32\drivers\etc\hosts
 ```
@@ -35,9 +37,9 @@ $ docker run -it --rm --name laravel -p 80:80 -p 35729:35729 -v /c/Users/volumen
 
 Recuerda agregar el script a todas tus páginas
 
-``
+```
 <script src="http://laravel.test:35729/livereload.js?snipver=1"></script>
-``
+```
 
 Si deseas ver el log de Livereload agrega ``?LR-verbose`` a la url (``http://laravel.test:80/?LR-verbose``)
 
@@ -55,6 +57,10 @@ Todo
 [ ] Que habra la url en el navegador una vez que arranque
 [ ] Agregar observador de buenas prácticas, parametrizado por archivos (PHP_Codesniffer,php-testability,PHP-Parser)
 [ ] Agregar a config.txt control del tiempo de polling para livereload (default 100ms)
+[ ] Agregar silent installation de Docker Toolbox
+[ ] Quitar dependencia de git bash en inicio.bat
+[ ] Agregar inicio.bat para trabajar con Docker nativo
+[ ] Agregar script para que se pueda usar en Linux
 
 ? - testing
 / - en proceso
