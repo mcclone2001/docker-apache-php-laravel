@@ -9,7 +9,7 @@ Asegurate de tener installado Docker Toolbox
 Y tener los siguientes contenedores corriendo
 ```
 docker run -d --rm --name redis redis
-docker run -d --name graphite --restart=always -p 9080:80 -p 9081:81 -p 2003-2004:2003-2004 -p 2023-2024:2023-2024 -p 8125:8125/udp -p 8126:8126 hopsoft/graphite-statsd
+docker run -d --rm --name graphite -p 9080:80 -p 9081:81 -p 2003-2004:2003-2004 -p 2023-2024:2023-2024 -p 8125:8125/udp -p 8126:8126 hopsoft/graphite-statsd
 ```
 
 Para usar Livereload recuerda agregar el script a todas tus páginas

@@ -56,6 +56,8 @@ else
 	cd $1/ && composer create-project laravel/laravel ./ --prefer-dist
 	echo "Instalando node_modules con npm i"
 	cd $1/ && npm cache verify && npm i --no-bin-links
+	echo "Instalando cliente de statsd"
+	cd $1/ && composer require league/statsd
 	echo "Instalación terminada"
 
 fi
