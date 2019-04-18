@@ -8,8 +8,51 @@ Asegurate de tener installado Docker Toolbox
 
 Y tener los siguientes contenedores corriendo
 ```
+# redis para sesiones mas rapidas
 docker run -d --rm --name redis redis
+
+#graphite + graphana para metricas
 docker run -d --rm --name graphite -p 9080:80 -p 9081:81 -p 2003-2004:2003-2004 -p 2023-2024:2023-2024 -p 8125:8125/udp -p 8126:8126 hopsoft/graphite-statsd
+
+# Seyren para alertas
+docker run -d --rm --name mongodb mongo:3.0.1
+docker run -d --rm -p 9090:8080 --name seyren --link mongodb:mongodb -e GRAPHITE_URL=http://192.168.99.100:9081 -e HTTP_NOTIFICATION_URL="https://api.telegram.org/bot<BOT TOKEN>/sendMessage?chat_id=<CHAT ID>&text=ErrorLlamenAAlguien" -it usman/docker-seyren
+
+# ELK para logs (SIN Logstash, por el momento)
+docker run -it --rm --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.0.0
+docker run -it --rm --name kibana --link elasticsearch:elasticsearch_server -e ELASTICSEARCH_URL="http:\\elasticsearch_server:9200" -e ELASTICSEARCH_USERNAME=elastic -e ELASTICSEARCH_PASSWORD=changeme -p 5601:5601 kibana:7.0.0
+
+http://192.168.99.100:9081/render/?target=stats.timers.consultarServicio.peticionCircuitos.upper&from=-2minutes&to-1minutes&format=json
+```
+
+Para usar Filebeat usa un archivo filebeat.yml tomando en cuenta esta configuracion
+```
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - C:\Users\volumen\storage\logs\*
+  multiline.pattern: '^\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}] '
+  multiline.negate: true
+  multiline.match: after
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+setup.template.settings:
+  index.number_of_shards: 1
+
+setup.kibana:
+
+output.elasticsearch:
+  hosts: ["192.168.99.100:9200"]
+  username: "elastic"
+  password: "changeme"
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
 ```
 
 Para usar Livereload recuerda agregar el script a todas tus páginas
