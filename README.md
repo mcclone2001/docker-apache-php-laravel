@@ -43,7 +43,33 @@ filebeat.config.modules:
 setup.template.settings:
   index.number_of_shards: 1
 
+setup.dashboards.enabled: true
 setup.kibana:
+  host: "192.168.99.100:5601"
+
+output.elasticsearch:
+  hosts: ["192.168.99.100:9200"]
+  username: "elastic"
+  password: "changeme"
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+```
+
+Para usar metricbeat usa un archivo metricbeat.yml tomando en cuenta esta configuracion
+```
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+
+setup.dashboards.enabled: true
+setup.kibana:
+  host: "192.168.99.100:5601"
 
 output.elasticsearch:
   hosts: ["192.168.99.100:9200"]
