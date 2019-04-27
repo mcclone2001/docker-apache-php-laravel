@@ -18,11 +18,68 @@ docker run -d --rm --name graphite -p 9080:80 -p 9081:81 -p 2003-2004:2003-2004 
 docker run -d --rm --name mongodb mongo:3.0.1
 docker run -d --rm -p 9090:8080 --name seyren --link mongodb:mongodb -e GRAPHITE_URL=http://192.168.99.100:9081 -e HTTP_NOTIFICATION_URL="https://api.telegram.org/bot<BOT TOKEN>/sendMessage?chat_id=<CHAT ID>&text=ErrorLlamenAAlguien" -it usman/docker-seyren
 
-# ELK para logs (SIN Logstash, por el momento)
+# ELK para logs
 docker run -it --rm --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.0.0
 docker run -it --rm --name kibana --link elasticsearch:elasticsearch_server -e ELASTICSEARCH_URL="http:\\elasticsearch_server:9200" -e ELASTICSEARCH_USERNAME=elastic -e ELASTICSEARCH_PASSWORD=changeme -p 5601:5601 kibana:7.0.0
+docker run --rm -it -p 5044:5044 --link elasticsearch:elasticsearch -v /c/Users/IvanQ/dockers/docker-apache-php-laravel/configlogstash/:/usr/share/logstash/pipeline/ logstash:7.0.0
 
 http://192.168.99.100:9081/render/?target=stats.timers.consultarServicio.peticionCircuitos.upper&from=-2minutes&to-1minutes&format=json
+```
+
+Para usar Logstash usa un archivo pipeline.conf y pásalo como volumen al contenedor de Logstash
+```
+input {
+  beats {
+      port => "5044"
+  }
+}
+
+# The filter part of this file is commented out to indicate that it is
+# optional.
+filter {
+ grok {
+   match => { "message" => [
+   
+    "(?m)\[(?<FechaYHora>[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{4})\] \[(?<Log Level>(ERROR|WARNING|INFO))\] 
+\[Method\]: (?<Method>.*)
+\[URL\]: (?<URL>.*)
+\[Token\]: (?<Token>.*)
+\[Controller\]: (?<Controller>.*)
+\[Action\]: (?<Action>.*)
+\[Action Type\]: (?<Action Type>.*)
+\[Header\]: (?<Header>.*)
+\[Action Parameters\]: (?<Action Parameters>.*)
+\[Message\]: (?<Message>.*)
+\[Error Code\]: (?<Error Code>.*)
+\[Response Code\]: (?<Response Code>.*)
+\[Level\]: (?<Level>.*)
+\[TimeStamp\]: (?<TimeStamp>.*)
+\[StackTrace\]: (?<StackTrace>.*)
+\[Message Exception\]: (?<Message Exception>.*)",
+
+    "(?m)\[(?<FechaYHora>[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{4})\] \[(?<Log Level>(ERROR|WARNING|INFO))\] 
+\[Method\]: (?<Method>.*)
+\[URL\]: (?<URL>.*)
+\[Token\]: (?<Token>.*)
+\[Controller\]: (?<Controller>.*)
+\[Action\]: (?<Action>.*)
+\[Action Type\]: (?<Action Type>.*)
+\[Header\]: (?<Header>.*)
+\[Action Parameters\]: (?<Action Parameters>.*)"
+
+    ]
+   }
+ }
+}
+
+output {
+    stdout { codec => rubydebug }
+  elasticsearch {
+    hosts => ["elasticsearch:9200"]
+    user => "elastic"
+    password => "changeme"
+  }
+}
 ```
 
 Para usar Filebeat usa un archivo filebeat.yml tomando en cuenta esta configuracion
@@ -47,10 +104,9 @@ setup.dashboards.enabled: true
 setup.kibana:
   host: "192.168.99.100:5601"
 
-output.elasticsearch:
-  hosts: ["192.168.99.100:9200"]
-  username: "elastic"
-  password: "changeme"
+output.logstash:
+  # The Logstash hosts
+  hosts: ["192.168.99.100:5044"]
 
 processors:
   - add_host_metadata: ~
