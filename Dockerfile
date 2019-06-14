@@ -36,7 +36,8 @@ RUN apt-get update \
   && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
   && apt-get install --yes \
   nodejs \
-  tmux
+  tmux \
+  php-xdebug
 
 # Requisitos para webpack
 RUN npm install -g npm@latest

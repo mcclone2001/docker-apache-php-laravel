@@ -48,6 +48,11 @@ if [ ! -z "$(ls -A $1/)" ]; then
 		fi
 	fi
 
+	if [ ! -d "$1/packages/yacenter/compra/node_modules/node-sass/vendor/linux-x64-57" ]; then
+		echo "Actualizando NODE-SASS de PAQUETE-COMPRA a version LINUX"
+		cd $1/packages/yacenter/compra/ && npm rebuild node-sass --no-bin-links
+	fi
+
 else
 
 	echo "Iniciando con una instalación limpia"
@@ -63,5 +68,5 @@ else
 fi
 
 apachectl start
-tmux new "cd $1/ && npm run watch" ';' split -h "nodejs /tmp/livereloadserver.js --extensiones \"$2\" --directorios \"$3\"" ';' select-p -t 0 ';' split -v "nodejs /tmp/unittestingserver.js --codigo=\"$4\" --pruebas=\"$5\"" ";" select-p -t 2 ';' split -v "/bin/bash"
+tmux new "cd $1/ && npm run watch-poll" ';' split -h "nodejs /tmp/livereloadserver.js --extensiones \"$2\" --directorios \"$3\"" ';' select-p -t 0 ';' split -v "nodejs /tmp/unittestingserver.js --codigo=\"$4\" --pruebas=\"$5\"" ";" select-p -t 2 ';' split -v "cd $1/packages/yacenter/compra && npm run watch-poll"
 exit 0
